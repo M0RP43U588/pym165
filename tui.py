@@ -12,6 +12,8 @@ class CrudButtons(VerticalGroup):
 
 
 class Tui(App):
+    CSS_PATH = "tui.tcss"
+
     def on_mount(self) -> None:
         self.theme: str = "catppuccin-mocha"
 

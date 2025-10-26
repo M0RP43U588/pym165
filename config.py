@@ -20,5 +20,6 @@ Willkommen, die navigation funktioniert wie folgt:
     - Shift Tab zum auswählen der Buttons (vorheriger)
     - Enter um einen Button zu klicken
     - Control+Q um das Programm zu beenden
+    - Escape um zum Hauptmenu zurückzugelangen
     - Der Mauszeiger kann auch verwendet werden
 """

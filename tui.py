@@ -1,7 +1,25 @@
+from textual import on
 from textual.app import App, ComposeResult
 from textual.containers import VerticalGroup, Horizontal
+from textual.screen import Screen
 from textual.widgets import Footer, Header, Button, Static
 from config import version, mongodb_ascii, help_text
+
+
+class CreateScreen(Screen):
+    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
+
+
+class ReadScreen(Screen):
+    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
+
+
+class UpdateScreen(Screen):
+    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
+
+
+class DeleteScreen(Screen):
+    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
 
 
 class CrudButtons(VerticalGroup):
@@ -28,6 +46,10 @@ class WelcomeScreen(VerticalGroup):
 
 class Tui(App):
     CSS_PATH = ["classes.tcss", "ids.tcss"]
+    SCREENS = {"cs": CreateScreen,
+               "rs": ReadScreen,
+               "us": UpdateScreen,
+               "ds": DeleteScreen}
 
     def on_mount(self) -> None:
         self.theme: str = "catppuccin-mocha"
@@ -37,3 +59,19 @@ class Tui(App):
         yield Footer()
         yield Horizontal(CrudButtons())
         yield Horizontal(WelcomeScreen())
+
+    @on(Button.Pressed, "#create_button")
+    def tui_create_mode(self) -> None:
+        self.push_screen("cs")
+
+    @on(Button.Pressed, "#read_button")
+    def tui_read_mode(self) -> None:
+        self.push_screen("rs")
+
+    @on(Button.Pressed, "#update_button")
+    def tui_update_mode(self) -> None:
+        self.push_screen("us")
+
+    @on(Button.Pressed, "#delete_button")
+    def tui_delete_mode(self) -> None:
+        self.push_screen("ds")

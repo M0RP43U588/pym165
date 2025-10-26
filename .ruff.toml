@@ -1,5 +1,6 @@
 fix = true
 line-length = 120
+exclude = ["config.py"]
 
 [lint]
 select = ["B", "E", "F", "N", "W", "ANN", "SIM", "RET", "PERF"]

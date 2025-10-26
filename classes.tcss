@@ -8,7 +8,7 @@ Widgets {
 }
 
 Horizontal {
-  border: wide #FFF;
+  border: wide #FFF; /* temp */
 }
 
 CrudButtons {
@@ -18,14 +18,18 @@ CrudButtons {
   margin: 3 0 0 3;
 }
 
+.crud_buttons {
+  color: #1e1e2e;
+}
+
 WelcomeScreen {
   border: wide #FFF;
   width: 100%;
   dock: right;
-  margin: 3 3 0 0;
+  margin: 8 3 0 0;
 }
 
-#version_static {
+.welcome_widgets {
   padding: 2;
   width: 100%;
   content-align: center middle;

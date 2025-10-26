@@ -1,0 +1,20 @@
+#create_button {
+  background: #89b4fa;
+}
+
+#read_button {
+  background: #94e2d5;
+}
+
+#update_button {
+  background: #fab387;
+}
+
+#delete_button {
+  background: #f38ba8;
+}
+
+#mongodb_ascii {
+  color: #a6e3a1;
+}
+

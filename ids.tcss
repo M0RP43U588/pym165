@@ -1,20 +1,25 @@
 #create_button {
   background: #89b4fa;
+  color: #1e1e2e;
 }
 
 #read_button {
   background: #94e2d5;
+  color: #1e1e2e;
 }
 
 #update_button {
   background: #fab387;
+  color: #1e1e2e;
 }
 
 #delete_button {
   background: #f38ba8;
+  color: #1e1e2e;
 }
 
 #mongodb_ascii {
   color: #a6e3a1;
+  width: 100%;
+  content-align: center middle;
 }
-

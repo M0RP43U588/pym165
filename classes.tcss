@@ -2,41 +2,60 @@ Screen {
   layout: grid;
   grid-size: 2;
   grid-gutter: 2;
-}
-
-Widgets {
+  grid-rows: 1fr;
+  grid-columns: 1fr 1fr;
+  min-width: 40;
+  min-height: 20;
 }
 
 Horizontal {
-  border: wide #FFF; /* temp */
+  border: wide #FFF;
+  width: 100%;
+  min-width: 20;
+  content-align: center middle;
 }
 
 CrudButtons {
   border: wide #FFF;
   width: 100%;
-  dock: left;
-  margin: 3 0 0 3;
+  layout: vertical;
+  height: auto;
+  content-align: center middle;
+  align-vertical: middle;
+  margin: 2 0 0 0;
 }
 
 .crud_buttons {
   color: #1e1e2e;
+  width: 100%;
+  min-width: 10;
+  margin: 1;
+  height: 16vh;
 }
 
 WelcomeScreen {
   border: wide #FFF;
   width: 100%;
+  height: 100%;
+  min-width: 20;
   dock: right;
-  margin: 8 3 0 0;
+  margin: 2 0 0 0;
+  content-align: center middle;
 }
 
 .welcome_widgets {
   padding: 2;
   width: 100%;
+  min-width: 10;
   content-align: center middle;
 }
 
 Button {
-  margin: 2;
-  width: 100%;
-  height: 8;
+  width: 80%;
+  min-width: 8;
+  height: 1fr;
+  min-height: 3;
+  max-height: 10;
+  content-align: center middle;
+  margin: 1 0;
 }

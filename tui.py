@@ -1,6 +1,6 @@
 from textual.app import App, ComposeResult
-from textual.containers import VerticalGroup, HorizontalScroll
-from textual.widgets import Footer, Header, Button
+from textual.containers import VerticalGroup, Horizontal
+from textual.widgets import Footer, Header, Button, Static
 
 
 class CrudButtons(VerticalGroup):
@@ -9,6 +9,11 @@ class CrudButtons(VerticalGroup):
         yield Button("Read", id="read_button")
         yield Button("Update", id="update_button")
         yield Button("Delete", id="delete_button")
+
+
+class WelcomeScreen(VerticalGroup):
+    def compose(self) -> ComposeResult:
+        yield Static("version placeholder - PyMongo TUI", id="version_static")
 
 
 class Tui(App):
@@ -20,4 +25,5 @@ class Tui(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        yield HorizontalScroll(CrudButtons())
+        yield Horizontal(CrudButtons())
+        yield Horizontal(WelcomeScreen())

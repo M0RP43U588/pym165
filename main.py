@@ -1,6 +1,6 @@
 from os import get_terminal_size
 from sys import exit as leave
-from tui import Tui
+from screens.main_screen import Tui
 
 
 def termsize_check() -> bool:

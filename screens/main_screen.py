@@ -1,25 +1,18 @@
 from textual import on
-from textual.app import App, ComposeResult
-from textual.containers import VerticalGroup, Horizontal
-from textual.screen import Screen
-from textual.widgets import Footer, Header, Button, Static
-from config import version, mongodb_ascii, help_text
+from textual.app import App
+from textual.widgets import Footer, Header
 
+# ..shared widgets & containers
+from shared.textual_shared import Button, ComposeResult, Horizontal, Static, VerticalGroup
 
-class CreateScreen(Screen):
-    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
+# other screens
+from screens.create_screen import CreateScreen
+from screens.update_screen import UpdateScreen
+from screens.read_screen import ReadScreen
+from screens.delete_screen import DeleteScreen
 
-
-class ReadScreen(Screen):
-    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
-
-
-class UpdateScreen(Screen):
-    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
-
-
-class DeleteScreen(Screen):
-    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
+# information
+from shared.strings import version, mongodb_ascii, help_text
 
 
 class CrudButtons(VerticalGroup):
@@ -45,7 +38,7 @@ class WelcomeScreen(VerticalGroup):
 
 
 class Tui(App):
-    CSS_PATH = ["classes.tcss", "ids.tcss"]
+    CSS_PATH = ["../stylesheets/classes.tcss", "../stylesheets/ids.tcss"]
     SCREENS = {"cs": CreateScreen,
                "rs": ReadScreen,
                "us": UpdateScreen,

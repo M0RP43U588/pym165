@@ -1,4 +1,4 @@
-from shared.textual_shared import Screen
+from textual.screen import Screen
 
 
 class CreateScreen(Screen):

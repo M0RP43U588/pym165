@@ -1,9 +1,7 @@
 from textual import on
-from textual.app import App
-from textual.widgets import Footer, Header
-
-# ..shared widgets & containers
-from shared.textual_shared import Button, ComposeResult, Horizontal, Static, VerticalGroup
+from textual.app import App, ComposeResult
+from textual.widgets import Footer, Header, Button, Static
+from textual.containers import Horizontal, VerticalGroup
 
 # other screens
 from screens.create_screen import CreateScreen
@@ -12,7 +10,7 @@ from screens.read_screen import ReadScreen
 from screens.delete_screen import DeleteScreen
 
 # information
-from shared.strings import version, mongodb_ascii, help_text
+from shared.data import version, mongodb_ascii, help_text
 
 
 class CrudButtons(VerticalGroup):

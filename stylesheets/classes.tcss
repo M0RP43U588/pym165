@@ -60,11 +60,11 @@ Button {
   margin: 1 0;
 }
 
-ReadScreen {
+ReadScreen, CreateScreen {
   layout: vertical;
 }
 
-RSMain {
+RSMain, CSMain {
   width: 100%;
   height: 100%;
 }

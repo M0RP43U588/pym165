@@ -1,4 +1,4 @@
-version: str = "0.7.0"
+version: str = "0.8.0"
 
 mongodb_ascii: str = r"""
  /$$      /$$                                         /$$$$$$$  /$$$$$$$
@@ -30,7 +30,7 @@ collection_fields: list[str] = [
         "rating", "min_alter", "bemerkungen"
         ]
 
-collection_fields_to_types: set[str, str] = {
+collection_fields_to_types_fake: set[str, str] = {
         "name": "str",
         "art": "str",
         "jahr": "int",
@@ -40,3 +40,18 @@ collection_fields_to_types: set[str, str] = {
         "min_alter": "int",
         "bemerkungen": "str"
         }
+
+collection_fields_to_types_real: set[str, str] = {
+        "name": "str",
+        "art": "list",
+        "jahr": "int",
+        "regisseur": "str",
+        "schauspieler": "list",
+        "rating": "float",
+        "min_alter": "int",
+        "bemerkungen": "str"
+        }
+
+filter_type = dict[str, str | int | float]
+
+actual_doc_type = dict[str, str | int | float | list[str, ...]]

@@ -1,6 +1,6 @@
-version: str = "0.1.0"
+version: str = "0.7.0"
 
-mongodb_ascii = r"""
+mongodb_ascii: str = r"""
  /$$      /$$                                         /$$$$$$$  /$$$$$$$
 | $$$    /$$$                                        | $$__  $$| $$__  $$
 | $$$$  /$$$$  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$ | $$  \ $$| $$  \ $$
@@ -14,7 +14,7 @@ mongodb_ascii = r"""
                                   \______/
 """
 
-help_text = """
+help_text: str = """
 Willkommen, die navigation funktioniert wie folgt:
     - Tab zum auswählen der Buttons (nächster)
     - Shift Tab zum auswählen der Buttons (vorheriger)
@@ -24,6 +24,19 @@ Willkommen, die navigation funktioniert wie folgt:
     - Der Mauszeiger kann auch verwendet werden
 """
 
-collection_fields = ["name", "art", "jahr",
-                     "regisseur", "schauspieler",
-                     "rating", "min_alter", "bemerkungen"]
+collection_fields: list[str] = [
+        "name", "art", "jahr",
+        "regisseur", "schauspieler",
+        "rating", "min_alter", "bemerkungen"
+        ]
+
+collection_fields_to_types: set[str, str] = {
+        "name": "str",
+        "art": "str",
+        "jahr": "int",
+        "regisseur": "str",
+        "schauspieler": "str",
+        "rating": "float",
+        "min_alter": "int",
+        "bemerkungen": "str"
+        }

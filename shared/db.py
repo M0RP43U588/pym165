@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 from pymongo.cursor import Cursor
-from shared.data import filter_type, actual_doc_type
+from shared.data import filter_type, actual_doc_type, collection_fields
 
 CLIENT: MongoClient | None = None
 
@@ -28,3 +28,11 @@ def mongodb_read(filters: filter_type) -> Cursor:
 
 def mongodb_create(filters: actual_doc_type) -> bool:
     return get_collection().insert_one(filters).acknowledged
+
+
+def mongodb_update(filters: filter_type, change: actual_doc_type) -> bool:
+    return get_collection().update_one(filters, change).acknowledged
+
+
+def document_field_validator(value: str) -> bool:
+    return bool(value.strip() in collection_fields)

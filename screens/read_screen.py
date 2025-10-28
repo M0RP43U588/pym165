@@ -4,8 +4,8 @@ from textual.widgets import Input, Static
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.containers import Horizontal, VerticalGroup
-from shared.data import collection_fields, collection_fields_to_types_fake
-from shared.db import mongodb_read
+from shared.data import collection_fields_to_types_fake
+from shared.db import mongodb_read, document_field_validator
 from pprint import pformat
 
 
@@ -18,7 +18,7 @@ class RSMain(VerticalGroup):
         yield Input(placeholder="Feld:",
                     type="text",
                     max_length=12,
-                    validators=[Function(rs_field_validator)],
+                    validators=[Function(document_field_validator)],
                     id="rs_field_input"
                     )
         yield Input(placeholder="Wert:",
@@ -56,8 +56,6 @@ class RSMain(VerticalGroup):
             self.query_one("#rs_static", Static).update(pformat(list(result)))
 
 
-def rs_field_validator(value: str) -> bool:
-    return bool(value.strip() in collection_fields)
 
 
 def rs_value_validator(value: str) -> bool:

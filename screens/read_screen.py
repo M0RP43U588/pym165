@@ -56,8 +56,6 @@ class RSMain(VerticalGroup):
             self.query_one("#rs_static", Static).update(pformat(list(result)))
 
 
-
-
 def rs_value_validator(value: str) -> bool:
     if RSMain.field_type is None:
         return False

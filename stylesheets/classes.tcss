@@ -64,11 +64,11 @@ Input {
   margin: 2;
 }
 
-ReadScreen, CreateScreen, UpdateScreen {
+ReadScreen, CreateScreen, UpdateScreen, DeleteScreen {
   layout: vertical;
 }
 
-RSMain, CSMain, UpdateScreen {
+RSMain, CSMain, USMain, DSMain {
   width: 100%;
   height: 100%;
 }

@@ -1,4 +1,4 @@
-version: str = "0.9.0"
+version: str = "1.0.0"
 
 mongodb_ascii: str = r"""
  /$$      /$$                                         /$$$$$$$  /$$$$$$$

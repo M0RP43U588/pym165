@@ -34,5 +34,9 @@ def mongodb_update(filters: filter_type, change: actual_doc_type) -> bool:
     return get_collection().update_one(filters, change).acknowledged
 
 
+def mongodb_delete(filters: filter_type) -> bool:
+    return get_collection().delete_one(filters).acknowledged
+
+
 def document_field_validator(value: str) -> bool:
     return bool(value.strip() in collection_fields)

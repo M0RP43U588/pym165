@@ -1,4 +1,3 @@
-import pymongo
 from os import get_terminal_size
 from sys import exit as leave
 from screens.main_screen import Tui
@@ -13,9 +12,6 @@ def main() -> None:
     if not termsize_check():
         leave("Terminal muss mindestens 180x50 sein")
 
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = client["filme"]
-    collection = db["dvd_sammlung"]
     app: Tui = Tui()
     app.run()
 

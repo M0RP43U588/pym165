@@ -41,16 +41,7 @@ collection_fields_to_types_fake: set[str, str] = {
         "bemerkungen": "str"
         }
 
-collection_fields_to_types_real: set[str, str] = {
-        "name": "str",
-        "art": "list",
-        "jahr": "int",
-        "regisseur": "str",
-        "schauspieler": "list",
-        "rating": "float",
-        "min_alter": "int",
-        "bemerkungen": "str"
-        }
+field_info_string = "name, art, jahr, regisseur, schauspieler, rating, min_alter, bemerkungen"
 
 filter_type = dict[str, str | int | float]
 

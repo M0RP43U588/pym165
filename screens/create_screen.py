@@ -5,6 +5,7 @@ from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.containers import Horizontal, VerticalGroup
 from shared.db import mongodb_create
+from pprint import pformat
 
 
 class CSMain(VerticalGroup):
@@ -13,24 +14,24 @@ class CSMain(VerticalGroup):
 
     def compose(self) -> ComposeResult:
         yield Input(
-                placeholder="Name / Titel",
+                placeholder="Filmtitel",
                 type="text",
                 max_length=50,
                 id="cs_name_input"
                 )
         yield Input(
-                placeholder="Art",
+                placeholder="Genre (Komma getrennt)",
                 type="text",
                 max_length=50,
                 id="cs_art_input"
                 )
         yield Input(
-                placeholder="Jahr",
+                placeholder="Jahr der Filmveröffentlichung (Zahl zwischen 1900 - 2025)",
                 type="integer",
                 max_length=4,
                 id="cs_jahr_input",
                 validators=[
-                    Number(minimum=1800, maximum=2025)
+                    Number(minimum=1900, maximum=2025)
                     ]
                 )
         yield Input(
@@ -40,13 +41,13 @@ class CSMain(VerticalGroup):
                 id="cs_reg_input"
                 )
         yield Input(
-                placeholder="Schauspieler",
+                placeholder="Schauspieler (Komma getrennt)",
                 type="text",
                 max_length=60,
                 id="cs_sch_input"
                 )
         yield Input(
-                placeholder="Rating",
+                placeholder="Bewertung (Zahl zwischen 1.00-10.00)",
                 type="number",
                 max_length=4,
                 id="cs_rating_input",
@@ -55,7 +56,7 @@ class CSMain(VerticalGroup):
                     ]
                 )
         yield Input(
-                placeholder="Mind. Alter",
+                placeholder="Mindestalter (Zahl zwischen 1-18)",
                 type="integer",
                 max_length=2,
                 id="cs_age_input",
@@ -103,7 +104,10 @@ class CSMain(VerticalGroup):
                 }
 
         if bool(mongodb_create(json)):
-            self.query_one("#cs_static").update("Datensatz erfolgreich eingefügt")
+            self.query_one("#cs_static").update(f"{str(pformat(json))}\n\nObenstehende Daten wurden erfolgreich eingefügt.")
+
+        for widget in self.query(Input):
+            widget.value = ""
 
 
 class CreateScreen(Screen):

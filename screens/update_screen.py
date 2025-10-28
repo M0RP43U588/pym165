@@ -94,6 +94,9 @@ class USMain(VerticalGroup):
                 )):
                 self.query_one("#us_static").update("Datensatz wurde erfolgreich geändert")
 
+                for widget in self.query(Input):
+                    widget.value = ""
+
 
 def us_target_value_validator(value: str) -> bool:
     if USMain.target_field is None:

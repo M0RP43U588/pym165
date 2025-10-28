@@ -27,3 +27,7 @@
 #rs_field_input.-valid {
   border: tall $success;
 }
+
+#cs_static {
+  margin: 2 0 0 2;
+}

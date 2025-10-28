@@ -4,7 +4,7 @@ from textual.widgets import Input, Static
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.containers import Horizontal, VerticalGroup
-from shared.data import collection_fields_to_types_fake
+from shared.data import collection_fields_to_types_fake, field_info_string
 from shared.db import mongodb_delete, document_field_validator
 
 
@@ -14,13 +14,13 @@ class DSMain(VerticalGroup):
     value = None
 
     def compose(self) -> ComposeResult:
-        yield Input(placeholder="Feld:",
+        yield Input(placeholder=f"Feld ({field_info_string})",
                     type="text",
                     max_length=12,
                     validators=[Function(document_field_validator)],
                     id="ds_field_input"
                     )
-        yield Input(placeholder="Wert:",
+        yield Input(placeholder="Wert des Felds, dass gelöscht werden soll (bsp. Inception beim Feld name)",
                     type="text",
                     max_length=100,
                     validators=[Function(ds_value_validator)],
@@ -50,8 +50,11 @@ class DSMain(VerticalGroup):
                 case _:
                     DSMain.value = str(event.value.strip())
 
-            if bool(mongodb_delete({DSMain.field: {"$regex": f"{DSMain.value}", "$options": "i"}})):
-                self.query_one("#ds_static", Static).update("Datensatz wurde erfolgreich entfernt")
+            if mongodb_delete({DSMain.field: {"$regex": f"{DSMain.value}", "$options": "i"}}):
+                self.query_one("#ds_static", Static).update("Der erste gefundene Eintrag wurde erfolgreich gelöscht")
+
+                for widget in self.query(Input):
+                    widget.value = ""
 
 
 def ds_value_validator(value: str) -> bool:

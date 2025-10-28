@@ -3,13 +3,13 @@ from textual.validation import Function
 from textual.widgets import Input, Static
 from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.containers import Horizontal, VerticalGroup
+from textual.containers import Horizontal, VerticalScroll
 from shared.data import collection_fields_to_types_fake
 from shared.db import mongodb_read, document_field_validator
 from pprint import pformat
 
 
-class RSMain(VerticalGroup):
+class RSMain(VerticalScroll):
     field_value = None
     field = None
     value = None

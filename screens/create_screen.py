@@ -9,8 +9,8 @@ from pprint import pformat
 
 
 class CSMain(VerticalGroup):
-    art: str = None
-    sch: str = None
+    art: list = []
+    sch: list = []
 
     def compose(self) -> ComposeResult:
         yield Input(
@@ -74,20 +74,20 @@ class CSMain(VerticalGroup):
 
     @on(Input.Blurred, "#cs_art_input")
     def split_art(self, event: Input.Blurred) -> None:
-        CSMain.art = event.value.split(",")
+        CSMain.art = event.value.strip().split(",")
 
     @on(Input.Blurred, "#cs_sch_input")
     def split_sch(self, event: Input.Blurred) -> None:
-        CSMain.sch = event.value.split(",")
+        CSMain.sch = event.value.strip().split(",")
 
     @on(Input.Submitted, "#cs_bem_input")
     def run_create(self, event: Input.Submitted) -> None:
 
         name = self.query_one("#cs_name_input").value
-        art: list = CSMain.art
+        art = CSMain.art or []
         jahr = self.query_one("#cs_jahr_input").value
         regisseur = self.query_one("#cs_reg_input").value
-        sch: list = CSMain.sch
+        sch = CSMain.sch or []
         rating = self.query_one("#cs_rating_input").value
         min_alter = self.query_one("#cs_age_input").value
         bemerkungen = self.query_one("#cs_bem_input").value
@@ -103,11 +103,13 @@ class CSMain(VerticalGroup):
                 "bemerkungen": bemerkungen
                 }
 
-        if bool(mongodb_create(json)):
+        success = mongodb_create(json)
+        if success:
             self.query_one("#cs_static").update(f"{str(pformat(json))}\n\nObenstehende Daten wurden erfolgreich eingefügt.")
-
-        for widget in self.query(Input):
-            widget.value = ""
+            for widget in self.query(Input):
+                widget.value = ""
+        else:
+            self.query_one("#cs_static").update("Fehler: Datensatz konnte nicht eingefügt werden")
 
 
 class CreateScreen(Screen):

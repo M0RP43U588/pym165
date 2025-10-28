@@ -50,11 +50,13 @@ class DSMain(VerticalGroup):
                 case _:
                     DSMain.value = str(event.value.strip())
 
-            if mongodb_delete({DSMain.field: {"$regex": f"{DSMain.value}", "$options": "i"}}):
+            success = mongodb_delete({DSMain.field: {"$regex": f"{DSMain.value}", "$options": "i"}})
+            if success:
                 self.query_one("#ds_static", Static).update("Der erste gefundene Eintrag wurde erfolgreich gelöscht")
-
                 for widget in self.query(Input):
                     widget.value = ""
+            else:
+                self.query_one("#ds_static", Static).update("Kein Eintrag gelöscht — kein passendes Dokument gefunden.")
 
 
 def ds_value_validator(value: str) -> bool:

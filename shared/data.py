@@ -16,9 +16,9 @@ mongodb_ascii: str = r"""
 
 help_text: str = """
 Willkommen, die navigation funktioniert wie folgt:
-    - Tab zum auswählen der Buttons (nächster)
-    - Shift Tab zum auswählen der Buttons (vorheriger)
-    - Enter um einen Button zu klicken
+    - Tab um das nächste Element zu fokusieren
+    - Shift Tab um das vorherig Element zu fokusieren
+    - Enter um einen Button zu klicken oder einen Input zu bestätigen
     - Control+Q um das Programm zu beenden
     - Escape um zum Hauptmenu zurückzugelangen
     - Der Mauszeiger kann auch verwendet werden

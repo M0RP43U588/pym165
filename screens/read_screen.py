@@ -3,13 +3,13 @@ from textual.validation import Function
 from textual.widgets import Input, Static
 from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.containers import Horizontal, VerticalScroll
+from textual.containers import Horizontal, VerticalGroup
 from shared.data import collection_fields_to_types_fake
 from shared.db import mongodb_read, document_field_validator
 from pprint import pformat
 
 
-class RSMain(VerticalScroll):
+class RSMain(VerticalGroup):
     field_value = None
     field = None
     value = None
@@ -53,7 +53,10 @@ class RSMain(VerticalScroll):
                 case _:
                     RSMain.value = str(event.value.strip())
                     result = mongodb_read({RSMain.field: {"$regex": f"{RSMain.value}", "$options": "i"}})
-            self.query_one("#rs_static", Static).update(pformat(list(result)))
+            self.query_one("#rs_static", Static).update(f"Folgende Daten wurden gefunden:\n{pformat(list(result))}")
+
+            for widget in self.query(Input):
+                widget.value = ""
 
 
 def rs_value_validator(value: str) -> bool:

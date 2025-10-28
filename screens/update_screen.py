@@ -12,32 +12,32 @@ class USMain(VerticalGroup):
     target_field = None
     target_field_type = None
     target_value = None
-    changed_field = None
-    changed_field_type = None
-    changed_value = None
+    change_field = None
+    change_field_type = None
+    change_value = None
 
     def compose(self) -> ComposeResult:
-        yield Input(placeholder="Feld des Dokuments, welches geändert werden soll",
+        yield Input(placeholder="Feld des Eintrags, nach welchem gesucht werden soll",
                     type="text",
                     max_length=12,
                     validators=[Function(document_field_validator)],
                     id="us_target_field"
                     )
-        yield Input(placeholder="Wert des Dokuments, welches geändert werden soll",
+        yield Input(placeholder="Wert des Eintrags, welcher geändert werden soll",
                     type="text",
                     max_length=100,
                     validators=[Function(us_target_value_validator)],
                     disabled=True,
                     id="us_target_value"
                     )
-        yield Input(placeholder="Feld, welches geändert werden soll",
+        yield Input(placeholder="Welches Feld geändert werden soll",
                     type="text",
                     max_length=12,
                     validators=[Function(document_field_validator)],
                     disabled=True,
                     id="us_change_field"
                     )
-        yield Input(placeholder="Wert, der geändert werden soll",
+        yield Input(placeholder="Neuer Wert des Eintrags auf dem Oben gegebenen Feld",
                     type="text",
                     max_length=100,
                     validators=[Function(us_change_value_validator)],
@@ -88,14 +88,16 @@ class USMain(VerticalGroup):
                     USMain.change_value = float(event.value.strip())
                 case _:
                     USMain.change_value = str(event.value.strip())
-            if bool(mongodb_update(
+            success = mongodb_update(
                 {USMain.target_field: USMain.target_value},
                 {"$set": {USMain.change_field: USMain.change_value}}
-                )):
+                )
+            if success:
                 self.query_one("#us_static").update("Datensatz wurde erfolgreich geändert")
-
                 for widget in self.query(Input):
                     widget.value = ""
+            else:
+                self.query_one("#us_static").update("Kein Datensatz wurde gefunden.")
 
 
 def us_target_value_validator(value: str) -> bool:

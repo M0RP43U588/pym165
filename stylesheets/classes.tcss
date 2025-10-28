@@ -9,14 +9,13 @@ Screen {
 }
 
 /* Horizontal {
-  border: wide #FFF;
   width: 100%;
   min-width: 20;
   content-align: center middle;
 } */
 
 CrudButtons {
-  border: wide #FFF;
+  border: wide #cba6f7;
   width: 100%;
   layout: vertical;
   height: auto;
@@ -34,7 +33,7 @@ CrudButtons {
 }
 
 WelcomeScreen {
-  border: wide #FFF;
+  border: wide #cba6f7;
   width: 100%;
   height: 100%;
   min-width: 20;

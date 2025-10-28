@@ -27,15 +27,17 @@ def mongodb_read(filters: filter_type) -> Cursor:
 
 
 def mongodb_create(filters: actual_doc_type) -> bool:
-    return get_collection().insert_one(filters).acknowledged
+    return bool(get_collection().insert_one(filters).inserted_id)
 
 
 def mongodb_update(filters: filter_type, change: actual_doc_type) -> bool:
-    return get_collection().update_one(filters, change).acknowledged
+    result = get_collection().update_one(filters, change)
+    return result.matched_count > 0
 
 
 def mongodb_delete(filters: filter_type) -> bool:
-    return get_collection().delete_one(filters).acknowledged
+    result = get_collection().delete_one(filters)
+    return result.deleted_count > 0
 
 
 def document_field_validator(value: str) -> bool:

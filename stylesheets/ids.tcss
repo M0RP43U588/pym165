@@ -28,6 +28,10 @@
   border: tall $success;
 }
 
-#cs_static {
+#cs_static, #rs_static {
   margin: 2 0 0 2;
+}
+
+#us_target_value {
+  margin: 2 2 4 2;
 }

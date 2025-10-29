@@ -10,7 +10,7 @@ def termsize_check() -> bool:
 
 def main() -> None:
     if not termsize_check():
-        leave("Terminal muss mindestens 180x50 sein")
+        leave("Terminal muss mindestens 180x50 gross sein.")
 
     app: Tui = Tui()
     app.run()

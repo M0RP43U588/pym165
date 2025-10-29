@@ -108,8 +108,10 @@ class CSMain(VerticalGroup):
             self.query_one("#cs_static").update(f"{str(pformat(json))}\n\nObenstehende Daten wurden erfolgreich eingefügt.")
             for widget in self.query(Input):
                 widget.value = ""
+            self.set_timer(5, lambda: self.query_one("#cs_static", Static).update(""))
         else:
             self.query_one("#cs_static").update("Fehler: Datensatz konnte nicht eingefügt werden")
+            self.set_timer(5, lambda: self.query_one("#cs_static", Static).update(""))
 
 
 class CreateScreen(Screen):

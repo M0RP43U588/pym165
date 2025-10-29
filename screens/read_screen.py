@@ -3,7 +3,7 @@ from textual.validation import Function
 from textual.widgets import Input, Static
 from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.containers import Horizontal, VerticalGroup
+from textual.containers import Horizontal, VerticalGroup, VerticalScroll
 from shared.data import collection_fields_to_types_fake
 from shared.db import mongodb_read, document_field_validator
 from pprint import pformat
@@ -28,14 +28,14 @@ class RSMain(VerticalGroup):
                     disabled=True,
                     id="rs_value_input"
                     )
-        yield Static("", id="rs_static")
+        yield VerticalScroll(Static("", id="rs_static"), id="rs_scroll")
 
     @on(Input.Changed, "#rs_field_input")
     def rs_set_values(self, event: Input.Changed) -> None:
         if event.validation_result.is_valid:
             self.query_one("#rs_value_input", Input).disabled = False
-            RSMain.field_type = collection_fields_to_types_fake.get(event.value)
-            RSMain.field = event.value
+            RSMain.field_type = collection_fields_to_types_fake.get(event.value.strip())
+            RSMain.field = event.value.strip()
         else:
             self.query_one("#rs_value_input", Input).disabled = True
             self.query_one("#rs_value_input", Input).value = ""
@@ -54,6 +54,7 @@ class RSMain(VerticalGroup):
                     RSMain.value = str(event.value.strip())
                     result = mongodb_read({RSMain.field: {"$regex": f"{RSMain.value}", "$options": "i"}})
             self.query_one("#rs_static", Static).update(f"Folgende Daten wurden gefunden:\n{pformat(list(result))}")
+            self.set_timer(10, lambda: self.query_one("#rs_static", Static).update(""))
 
             for widget in self.query(Input):
                 widget.value = ""

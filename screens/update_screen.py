@@ -50,8 +50,8 @@ class USMain(VerticalGroup):
     def us_action_target_field(self, event: Input.Submitted) -> None:
         if event.validation_result.is_valid:
             self.query_one("#us_target_value").disabled = False
-            USMain.target_field_type = collection_fields_to_types_fake.get(event.value)
-            USMain.target_field = event.value
+            USMain.target_field_type = collection_fields_to_types_fake.get(event.value.strip())
+            USMain.target_field = event.value.strip()
         else:
             self.query_one("#us_target_value").disabled = True
 
@@ -73,8 +73,8 @@ class USMain(VerticalGroup):
     def us_action_change_field(self, event: Input.Submitted) -> None:
         if event.validation_result.is_valid:
             self.query_one("#us_change_value").disabled = False
-            USMain.change_field_type = collection_fields_to_types_fake.get(event.value)
-            USMain.change_field = event.value
+            USMain.change_field_type = collection_fields_to_types_fake.get(event.value.strip())
+            USMain.change_field = event.value.strip()
         else:
             self.query_one("#us_change_value").disabled = True
 
@@ -96,8 +96,10 @@ class USMain(VerticalGroup):
                 self.query_one("#us_static").update("Datensatz wurde erfolgreich geändert")
                 for widget in self.query(Input):
                     widget.value = ""
+                self.set_timer(5, lambda: self.query_one("#us_static", Static).update(""))
             else:
                 self.query_one("#us_static").update("Kein Datensatz wurde gefunden.")
+                self.set_timer(5, lambda: self.query_one("#us_static", Static).update(""))
 
 
 def us_target_value_validator(value: str) -> bool:

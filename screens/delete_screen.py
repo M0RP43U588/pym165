@@ -33,8 +33,8 @@ class DSMain(VerticalGroup):
     def ds_set_values(self, event: Input.Changed) -> None:
         if event.validation_result.is_valid:
             self.query_one("#ds_value_input", Input).disabled = False
-            DSMain.field_type = collection_fields_to_types_fake.get(event.value)
-            DSMain.field = event.value
+            DSMain.field_type = collection_fields_to_types_fake.get(event.value.strip())
+            DSMain.field = event.value.strip()
         else:
             self.query_one("#ds_value_input", Input).disabled = True
             self.query_one("#ds_value_input", Input).value = ""
@@ -55,8 +55,10 @@ class DSMain(VerticalGroup):
                 self.query_one("#ds_static", Static).update("Der erste gefundene Eintrag wurde erfolgreich gelöscht")
                 for widget in self.query(Input):
                     widget.value = ""
+                self.set_timer(5, lambda: self.query_one("#ds_static", Static).update(""))
             else:
                 self.query_one("#ds_static", Static).update("Kein Eintrag gelöscht — kein passendes Dokument gefunden.")
+                self.set_timer(5, lambda: self.query_one("#ds_static", Static).update(""))
 
 
 def ds_value_validator(value: str) -> bool:
